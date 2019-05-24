@@ -46,7 +46,7 @@ We use [SemVer](http://semver.org/) for versioning.
 
 * **Steve Cantandor** - *Initial work* - (https://github.com/stevenjohncantando)
 
-* **Alex Pino** - *Initial work* - (https://github.com/PurpleBooth)
+* **Alex Pino** - *Initial work* - (https://github.com/apino117)
 
 See also the list of [contributors](https://github.com/Edpaynter/groupProject2/graphs/contributors) who participated in this project.
 

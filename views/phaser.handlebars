@@ -3,30 +3,118 @@
 
 
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Game Over</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Game Over</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="score">
+                    
                 </div>
-                <div class="modal-body">
-                    <div>
-                        GAME OVER :/
+                <form>
+                    <div id="enterName" class="form-group">
+                        <input type="test" class="form-control" id="user" placeholder="Enter Name">
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Submit</button>
-                    <button id="playAgain" type="button" class="btn btn-primary">Play Again</button>
-                </div>
+                    
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button id="scores" type="button" class="btn btn-secondary" data-dismiss="modal">Add Score</button>
+                <button id="playAgain" type="button" class="btn btn-primary">Play Again</button>
             </div>
         </div>
     </div>
+</div>
+
+<div class="modal fade" id="scoreModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="scoreModalLabel">Top Scores</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div>
+
+                    <table>
+                        <tr>
+                            <!-- top score  1 -->
+                            <td id="user1">
+
+                            </td>
+                            <td id="score1">
+
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <!-- top score  2 -->
+                            <td id="user2">
+
+                            </td>
+                            <td id="score2">
+
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <!-- top score 3 -->
+                            <td id="user3">
+
+                            </td>
+                            <td id="score3">
+
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <!-- top score 4  -->
+                            <td id="user4">
+
+                            </td>
+                            <td id="score4">
+
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <!-- top score  5 -->
+                            <td id="user5">
+
+                            </td>
+                            <td id="score5">
+
+                            </td>
+                        </tr>
+                    </table>
+                    <button id="playAgainScores" type="button" class="btn btn-primary">Play Again</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    
+</div>
+
 
 <script>
-    $( "#playAgain" ).click(function() {
-    location.reload()
-  });
+    $("#playAgain").click(function () {
+        location.reload()
+    });
+
+     $("#playAgainScores").click(function () {
+        location.reload()
+    });
+
+    $("#scores").click(function () {
+        $("#scoreModal").modal("show")
+    })
 </script>

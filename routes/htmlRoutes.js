@@ -3,8 +3,10 @@ var db = require("../models");
 module.exports = function(app) {
   // Load index page
   app.get("/", function(req, res) {
-    db.Highscore.findAll({}).then(function() {
-      res.render("index");
+    db.Highscore.findAll({}).then(function(dbHighscore) {
+      res.render("index", {
+        highscore: dbHighscore
+      });
     });
   });
 

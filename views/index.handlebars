@@ -6,9 +6,10 @@
         <h2><a href="/phaser">Play Game</a></h2>
         <h3>Current Leaderboard:</h3>
         <ul id="high-score-list" class="list-group">
-          {{#each highscores}}
+          {{#each highscore }}
           <li data-id="{{this.id}}" class="list-group-item">
-            {{this.name}}
+            <strong>Name: </strong>{{this.name}} 
+            <strong>Score: </strong>{{this.Score}}
           </li>
           {{/each}}
         </ul>

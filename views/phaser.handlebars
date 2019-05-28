@@ -14,13 +14,13 @@
             </div>
             <div class="modal-body">
                 <div id="score">
-                    
+
                 </div>
                 <form>
                     <div id="enterName" class="form-group">
                         <input type="test" class="form-control" id="user" placeholder="Enter Name">
                     </div>
-                    
+
                 </form>
             </div>
             <div class="modal-footer">
@@ -44,56 +44,35 @@
             <div class="modal-body">
                 <div>
 
-                    <table>
-                        <tr>
-                            <!-- top score  1 -->
-                            <td id="user1">
-
-                            </td>
-                            <td id="score1">
-
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <!-- top score  2 -->
-                            <td id="user2">
-
-                            </td>
-                            <td id="score2">
-
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <!-- top score 3 -->
-                            <td id="user3">
-
-                            </td>
-                            <td id="score3">
-
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <!-- top score 4  -->
-                            <td id="user4">
-
-                            </td>
-                            <td id="score4">
-
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <!-- top score  5 -->
-                            <td id="user5">
-
-                            </td>
-                            <td id="score5">
-
-                            </td>
-                        </tr>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">First</th>
+                                <th scope="col">Last</th>
+                                <th scope="col">Handle</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">1</th>
+                                <td>Mark</td>
+                                <td>Otto</td>
+                                <td>@mdo</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">2</th>
+                                <td>Jacob</td>
+                                <td>Thornton</td>
+                                <td>@fat</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">3</th>
+                                <td>Larry</td>
+                                <td>the Bird</td>
+                                <td>@twitter</td>
+                            </tr>
+                        </tbody>
                     </table>
                     <button id="playAgainScores" type="button" class="btn btn-primary">Play Again</button>
                 </div>
@@ -101,7 +80,7 @@
 
         </div>
     </div>
-    
+
 </div>
 
 
@@ -110,7 +89,7 @@
         location.reload()
     });
 
-     $("#playAgainScores").click(function () {
+    $("#playAgainScores").click(function () {
         location.reload()
     });
 

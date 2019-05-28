@@ -156,11 +156,7 @@ class preloadGame extends Phaser.Scene {
             repeat: -1
         });
 
-        // ---- Audio Creation ---- //
 
-        var music = this.sound.add('background-music');
-        music.setLoop(true);
-        music.play();
 
         this.scene.start("PlayGame");
     }
@@ -173,6 +169,15 @@ class playGame extends Phaser.Scene {
     }
     create() {
 
+        // ---- Audio Creation ---- //
+
+        var music = this.sound.add('background-music');
+
+        // Make it so it loops
+        music.setLoop(true);
+
+        // Set to play
+        music.play();
 
         timeText = this.add.text(160, 140, 'Time: 0', { fontSize: '32px', fill: '#000' });
         scoreText = this.add.text(160, 160, 'Score: 0', { fontSize: '32px', fill: '#000' });

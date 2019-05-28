@@ -62,7 +62,7 @@ window.onload = function () {
         width: 1334,
         height: 750,
         scene: [preloadGame, playGame],
-        backgroundColor: 0x0c88c7,
+        backgroundColor: "#000000",
 
         // physics settings
         physics: {
@@ -91,6 +91,8 @@ class preloadGame extends Phaser.Scene {
         // Add in the game background music
         this.load.audio("background-music", "assets/audio/background-music.mp3");
 
+        this.load.image("starbackground", "assets/images/nightStars.png");
+
         this.load.image("platform", "assets/images/platform.png");
 
         // player is a sprite sheet made by 24x48 pixels
@@ -118,7 +120,6 @@ class preloadGame extends Phaser.Scene {
         });
     }
 
-    // Create Statement for the Animations
     create() {
 
         // setting player animation
@@ -155,6 +156,12 @@ class preloadGame extends Phaser.Scene {
             repeat: -1
         });
 
+        // ---- Audio Creation ---- //
+
+        var music = this.sound.add('background-music');
+        music.setLoop(true);
+        music.play();
+
         this.scene.start("PlayGame");
     }
 }
@@ -166,11 +173,6 @@ class playGame extends Phaser.Scene {
     }
     create() {
 
-        // ---- Audio Creation ---- //
-
-        var music = this.sound.add('background-music');
-        music.setLoop(true);
-        music.play();
 
         timeText = this.add.text(160, 140, 'Time: 0', { fontSize: '32px', fill: '#000' });
         scoreText = this.add.text(160, 160, 'Score: 0', { fontSize: '32px', fill: '#000' });
@@ -412,6 +414,7 @@ class playGame extends Phaser.Scene {
     }
 
     update() {
+
 
         // game over
         if (this.player.y > game.config.height) {

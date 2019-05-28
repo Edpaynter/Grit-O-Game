@@ -3,6 +3,11 @@ var playerScore = 0;
 var scoreText;
 var timeText;
 
+// Audio Variables
+// var loopCount = 0;
+// var sounds;
+
+
 // global game options
 let gameOptions = {
 
@@ -62,7 +67,13 @@ window.onload = function () {
         // physics settings
         physics: {
             default: "arcade"
-        }
+        },
+
+        // Audio config disabling chrome's feature to stop autoplay
+        audio: {
+            disableWebAudio: true,
+            noAudio: false
+        },
     }
     game = new Phaser.Game(gameConfig);
     window.focus();
@@ -77,33 +88,37 @@ class preloadGame extends Phaser.Scene {
     }
     preload() {
 
+        // Add in the game background music
+        this.load.audio("background-music", "assets/audio/background-music.mp3");
 
-        this.load.image("platform", "assets/platform.png");
+        this.load.image("platform", "assets/images/platform.png");
 
         // player is a sprite sheet made by 24x48 pixels
-        this.load.spritesheet("player", "assets/player.png", {
+        this.load.spritesheet("player", "assets/images/player.png", {
             frameWidth: 24,
             frameHeight: 48
         });
 
         // the coin is a sprite sheet made by 20x20 pixels
-        this.load.spritesheet("coin", "assets/coin.png", {
+        this.load.spritesheet("coin", "assets/images/coin.png", {
             frameWidth: 20,
             frameHeight: 20
         });
 
         // the firecamp is a sprite sheet made by 32x58 pixels
-        this.load.spritesheet("fire", "assets/fire.png", {
+        this.load.spritesheet("fire", "assets/images/fire.png", {
             frameWidth: 40,
             frameHeight: 70
         });
 
         // mountains are a sprite sheet made by 512x512 pixels
-        this.load.spritesheet("mountain", "assets/mountain.png", {
+        this.load.spritesheet("mountain", "assets/images/mountain.png", {
             frameWidth: 512,
             frameHeight: 512
         });
     }
+
+    // Create Statement for the Animations
     create() {
 
         // setting player animation
@@ -150,7 +165,14 @@ class playGame extends Phaser.Scene {
         super("PlayGame");
     }
     create() {
-        timeText = this.add.text(160, 140, 'Time 0', { fontSize: '32px', fill: '#000' });
+
+        // ---- Audio Creation ---- //
+
+        var music = this.sound.add('background-music');
+        music.setLoop(true);
+        music.play();
+
+        timeText = this.add.text(160, 140, 'Time: 0', { fontSize: '32px', fill: '#000' });
         scoreText = this.add.text(160, 160, 'Score: 0', { fontSize: '32px', fill: '#000' });
         // scoreText.text = 
 
@@ -476,5 +498,8 @@ function resize() {
         canvas.style.height = windowHeight + "px";
     }
 }
+
+
+
 
 

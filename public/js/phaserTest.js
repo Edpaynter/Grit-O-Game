@@ -113,7 +113,7 @@ class preloadGame extends Phaser.Scene {
                 start: 0,
                 end: 1
             }),
-            frameRate: 8,
+            frameRate: 10,
             repeat: -1
         });
 

@@ -48,19 +48,24 @@
                         <thead>
                             <tr>
                                 <th scope="col">#</th>
-                                <th scope="col">First</th>
-                                <th scope="col">Last</th>
-                                <th scope="col">Handle</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Score</th>
+                                {{!-- <th scope="col">Time</th> --}}
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <th scope="row">1</th>
-                                <td>" "</td>
-                                <td>" "</td>
-                                <td>" "</td>
-                                <td>" "</td>
-                            </tr>
+                                {{#each highscore }}
+                                <td>
+                                    {{this.id}}
+                                </td>
+                                <td>
+                                    {{this.name}}
+                                </td>
+                                <td>
+                                    {{this.score}}
+                                </td>
+                                {{/each}}
+                            
                         </tbody>
                     </table>
                     <button id="playAgainScores" type="button" class="btn btn-primary">Play Again</button>

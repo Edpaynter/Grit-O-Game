@@ -54,18 +54,18 @@
                             </tr>
                         </thead>
                         <tbody>
-                                {{#each highscore }}
-                                <td>
-                                    {{this.id}}
-                                </td>
-                                <td>
-                                    {{this.name}}
-                                </td>
-                                <td>
-                                    {{this.score}}
-                                </td>
-                                {{/each}}
-                            
+                            {{#each highscore }}
+                            <td>
+                                {{this.id}}
+                            </td>
+                            <td>
+                                {{this.name}}
+                            </td>
+                            <td>
+                                {{this.score}}
+                            </td>
+                            {{/each}}
+
                         </tbody>
                     </table>
                     <button id="playAgainScores" type="button" class="btn btn-primary">Play Again</button>
@@ -89,6 +89,20 @@
     });
 
     $("#scores").click(function () {
+        var userData = {
+            name: $("#name").val(),
+            score: $("#score").val(),
+        }
+
+        var currentURL = window.location.origin;
+        $.post(currentURL + "/api/highscores", userData, function (data) {
+            $("#name").text(data.name);
+            $("#score").text(data.score);
+        });
         $("#scoreModal").modal("show")
+
     })
+
+   
+
 </script>

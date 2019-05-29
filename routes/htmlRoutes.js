@@ -11,8 +11,10 @@ module.exports = function(app) {
   });
 
   app.get("/phaser", function(req, res) {
-    db.Highscore.findAll({}).then(function() {
-      res.render("phaser");
+    db.Highscore.findAll({}).then(function(dbHighscore) {
+      res.render("phaser", {
+        highscore: dbHighscore
+      });
     });
   });
 

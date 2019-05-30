@@ -1,17 +1,14 @@
 // ================================================ GLOBAL ELEMENTS ================================================ //
 
-
 let game;
 var playerScore = 0;
 var scoreText;
 var timeText;
+var interval;
 
-
-// ----- General Game Settings ----- //
+// ----- GENERAL GAME SETTINGS ----- //
 
 let gameOptions = {
-
-
 
     // platform speed range, in pixels per second
     platformSpeedRange: [300, 300],
@@ -54,7 +51,7 @@ let gameOptions = {
     firePercent: 0,
 }
 
-// ----- Phaser Configurations ----- //
+// ----- PHASER CONFIGURATIONS ----- //
 
 window.onload = function () {
 
@@ -90,11 +87,12 @@ window.onload = function () {
 // ================================================ PRE-LOAD ================================================ //
 
 class preloadGame extends Phaser.Scene {
+
     constructor() {
         super("PreloadGame");
     }
 
-    // ----- Load In Game Elements ----- //
+    // ----- LOAD IN GAME ELEMENTS ----- //
 
     preload() {
 
@@ -129,7 +127,7 @@ class preloadGame extends Phaser.Scene {
         });
     }
 
-    // ----- Set Up Animations ----- //
+    // ----- SET UP ANIMATIONS ----- //
 
     create() {
 
@@ -199,7 +197,7 @@ class playGame extends Phaser.Scene {
         var start = new Date;
 
         // set an interval function to update the timetext every millisecond
-        setInterval(function () {
+        interval = setInterval(function () {
             timeText.text = "Time: " + ((new Date - start) / 1000);
         });
 
@@ -533,6 +531,9 @@ class playGame extends Phaser.Scene {
 
             // pause physics
             this.physics.pause();
+
+            // stop time
+            clearInterval(interval);
 
             // show modal
             $(document).ready(function () {

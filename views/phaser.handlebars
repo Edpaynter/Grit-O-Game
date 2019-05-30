@@ -90,9 +90,11 @@
 
     $("#scores").click(function () {
         var userData = {
-            name: $("#name").val(),
-            score: $("#score").val(),
+            name: $("#user").val(),
+            score: $("#score").text(),
         }
+
+        console.log(userData);
 
         var currentURL = window.location.origin;
         $.post(currentURL + "/api/highscores", userData, function (data) {

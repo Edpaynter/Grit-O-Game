@@ -3,12 +3,9 @@ var playerScore = 0;
 var scoreText;
 var timeText;
 
-// Audio Variables
-// var loopCount = 0;
-// var sounds;
 
+// ======================= GLOBAL GAME OPTIONS ======================= //
 
-// global game options
 let gameOptions = {
 
 
@@ -91,8 +88,6 @@ class preloadGame extends Phaser.Scene {
         // Add in the game background music
         this.load.audio("background-music", "assets/audio/background-music.mp3");
 
-        this.load.image("starbackground", "assets/images/nightStars.png");
-
         this.load.image("platform", "assets/images/platform.png");
 
         // player is a sprite sheet made by 24x48 pixels
@@ -155,8 +150,6 @@ class preloadGame extends Phaser.Scene {
             frameRate: 15,
             repeat: -1
         });
-
-
 
         this.scene.start("PlayGame");
     }

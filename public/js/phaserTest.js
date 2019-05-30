@@ -1,10 +1,13 @@
+// ================================================ GLOBAL ELEMENTS ================================================ //
+
+
 let game;
 var playerScore = 0;
 var scoreText;
 var timeText;
 
 
-// ======================= GLOBAL GAME OPTIONS ======================= //
+// ----- General Game Settings ----- //
 
 let gameOptions = {
 
@@ -42,7 +45,7 @@ let gameOptions = {
     playerStartPosition: 600,
 
     // consecutive jumps allowed
-    jumps: 2,
+    jumps: 5,
 
     // % of probability a coin appears on the platform
     coinPercent: 100,
@@ -50,6 +53,8 @@ let gameOptions = {
     // % of probability a fire appears on the platform
     firePercent: 0,
 }
+
+// ----- Phaser Configurations ----- //
 
 window.onload = function () {
 
@@ -66,54 +71,65 @@ window.onload = function () {
             default: "arcade"
         },
 
-        // Audio config disabling chrome's feature to stop autoplay
+        // audio config disabling chrome's feature to stop autoplay
         audio: {
             disableWebAudio: true,
             noAudio: false
         },
     }
+
+    // creates game
     game = new Phaser.Game(gameConfig);
+
+    // makes the window resize to fit the screen
     window.focus();
     resize();
     window.addEventListener("resize", resize, false);
 }
 
-// preloadGame scene
+// ================================================ PRE-LOAD ================================================ //
+
 class preloadGame extends Phaser.Scene {
     constructor() {
         super("PreloadGame");
     }
+
+    // ----- Load In Game Elements ----- //
+
     preload() {
 
-        // Add in the game background music
+        // add in the game background music
         this.load.audio("background-music", "assets/audio/background-music.mp3");
 
+        // add platform to be used
         this.load.image("platform", "assets/images/platform.png");
 
-        // player is a sprite sheet made by 24x48 pixels
+        // add in gritt-o
         this.load.spritesheet("player", "assets/images/player.png", {
             frameWidth: 24,
             frameHeight: 48
         });
 
-        // the coin is a sprite sheet made by 20x20 pixels
+        // add coin
         this.load.spritesheet("coin", "assets/images/coin.png", {
             frameWidth: 20,
             frameHeight: 20
         });
 
-        // the firecamp is a sprite sheet made by 32x58 pixels
+        // add fire
         this.load.spritesheet("fire", "assets/images/fire.png", {
             frameWidth: 40,
             frameHeight: 70
         });
 
-        // mountains are a sprite sheet made by 512x512 pixels
+        // add mountains
         this.load.spritesheet("mountain", "assets/images/mountain.png", {
             frameWidth: 512,
             frameHeight: 512
         });
     }
+
+    // ----- Set Up Animations ----- //
 
     create() {
 
@@ -151,30 +167,46 @@ class preloadGame extends Phaser.Scene {
             repeat: -1
         });
 
+        // ???
         this.scene.start("PlayGame");
     }
 }
 
-// playGame scene
+// ================================================ MAIN GAME ================================================ //
 class playGame extends Phaser.Scene {
     constructor() {
         super("PlayGame");
     }
     create() {
 
-        // ---- Audio Creation ---- //
+        // --------------- AUDIO ELEMENTS --------------- //
 
+        // create a music variable and assign our loaded "background-music"
         var music = this.sound.add('background-music');
 
-        // Make it so it loops
+        // make it so it loops
         music.setLoop(true);
 
-        // Set to play
+        // set to play
         music.play();
 
-        timeText = this.add.text(160, 140, 'Time: 0', { fontSize: '32px', fill: '#000' });
-        scoreText = this.add.text(160, 160, 'Score: 0', { fontSize: '32px', fill: '#000' });
-        // scoreText.text = 
+        // --------------- TIME & SCORE ELEMENTS --------------- //
+
+        // create and place time text
+        timeText = this.add.text(160, 120, "Time: ", { fontSize: '32px', fill: '#8c5a96' });
+
+        // create a variable to capture the initial time
+        var start = new Date;
+
+        // set an interval function to update the timetext every millisecond
+        setInterval(function () {
+            timeText.text = "Time: " + ((new Date - start) / 1000);
+        });
+
+        // create score text
+        scoreText = this.add.text(160, 160, 'Score: 0', { fontSize: '32px', fill: '#ea6118' });
+
+        // --------------- GROUPS & POOLS --------------- //
 
         // group with all active mountains.
         this.mountainGroup = this.add.group();
@@ -233,6 +265,8 @@ class playGame extends Phaser.Scene {
             }
         });
 
+        // --------------- ADDING & INITILIAZING OBJECTS --------------- //
+
         // adding a mountain
         this.addMountains()
 
@@ -247,11 +281,17 @@ class playGame extends Phaser.Scene {
 
         // adding the player;
         this.player = this.physics.add.sprite(gameOptions.playerStartPosition, game.config.height * 0.7, "player");
+
+        // set gravity for player
         this.player.setGravityY(gameOptions.playerGravity);
+
+        // ???
         this.player.setDepth(2);
 
         // the player is not dying
         this.dying = false;
+
+        // --------------- COLLISIONS --------------- //
 
         // setting collisions between the player and the platform group
         this.platformCollider = this.physics.add.collider(this.player, this.platformGroup, function () {
@@ -265,6 +305,7 @@ class playGame extends Phaser.Scene {
         // setting collisions between the player and the coin group
         this.physics.add.overlap(this.player, this.coinGroup, function (player, coin) {
 
+            // makes score go up when collision with coin happens
             this.tweens.add({
                 targets: coin,
                 y: coin.y - 100,
@@ -298,6 +339,8 @@ class playGame extends Phaser.Scene {
         this.input.on("pointerdown", this.jump, this);
     }
 
+    // --------------- SETTING UP MOUNTAINS & PLATFORMS TO INTERACT & AUTO-POPULATE --------------- //
+
     // adding mountains
     addMountains() {
         let rightmostMountain = this.getRightmostMountain();
@@ -325,8 +368,14 @@ class playGame extends Phaser.Scene {
 
     // the core of the script: platform are added from the pool or created on the fly
     addPlatform(platformWidth, posX, posY) {
+
+        // ???
         this.addedPlatforms++;
+
+        // initialize platform
         let platform;
+
+        // if from the pool
         if (this.platformPool.getLength()) {
             platform = this.platformPool.getFirst();
             platform.x = posX;
@@ -334,10 +383,11 @@ class playGame extends Phaser.Scene {
             platform.active = true;
             platform.visible = true;
             this.platformPool.remove(platform);
-            let newRatio = platformWidth / platform.displayWidth;
+            // let newRatio = platformWidth / platform.displayWidth; --------- I deleted this and it didnt seem to matter, I think we can nix it
             platform.displayWidth = platformWidth;
             platform.tileScaleX = 1 / platform.scaleX;
         }
+        // else add new objects
         else {
             platform = this.add.tileSprite(posX, posY, platformWidth, 32, "platform");
             this.physics.add.existing(platform);
@@ -396,6 +446,7 @@ class playGame extends Phaser.Scene {
         }
     }
 
+    // --------------- PLAYER JUMP CONFIGURATION --------------- //
     // the player jumps when on the ground, or once in the air as long as there are jumps left and the first jump was on the ground
     // and obviously if the player is not dying
     jump() {
@@ -411,19 +462,14 @@ class playGame extends Phaser.Scene {
         }
     }
 
+    // ================================================ LIVE UPDATE SECTION ================================================ //
+
     update() {
 
-
-        // game over
-        if (this.player.y > game.config.height) {
-            this.physics.pause();
-            $(document).ready(function () {
-                $("#score").html("Score: " + playerScore)
-                $('#exampleModal').modal("show");
-            });
-        }
-
+        // keeps player from getting lost as the map scrolls by - without it the player would'nt be able to run as fast as the scroll
         this.player.x = gameOptions.playerStartPosition;
+
+        // --------------- RECYCLING --------------- //
 
         // recycling platforms
         let minDistance = game.config.width;
@@ -479,10 +525,25 @@ class playGame extends Phaser.Scene {
             let nextPlatformHeight = Phaser.Math.Clamp(nextPlatformGap, minPlatformHeight, maxPlatformHeight);
             this.addPlatform(nextPlatformWidth, game.config.width + nextPlatformWidth / 2, nextPlatformHeight);
         }
+
+        // --------------- GAME OVER --------------- //
+
+        // if player falls below the platform
+        if (this.player.y > game.config.height) {
+
+            // pause physics
+            this.physics.pause();
+
+            // show modal
+            $(document).ready(function () {
+                $("#score").html("Score: " + playerScore)
+                $('#exampleModal').modal("show");
+            });
+        }
     }
 };
 
-
+// --------------- DYNAMIC FRAME RESIZING --------------- //
 
 function resize() {
     let canvas = document.querySelector("canvas");

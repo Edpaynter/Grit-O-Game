@@ -3,7 +3,9 @@ var db = require("../models");
 module.exports = function(app) {
   // Load index page
   app.get("/", function(req, res) {
-    db.Highscore.findAll({}).then(function(dbHighscore) {
+    db.Highscore.findAll({
+      order: [["score", "DESC"]]
+    }).then(function(dbHighscore) {
       res.render("index", {
         highscore: dbHighscore
       });
@@ -11,7 +13,9 @@ module.exports = function(app) {
   });
 
   app.get("/phaser", function(req, res) {
-    db.Highscore.findAll({}).then(function(dbHighscore) {
+    db.Highscore.findAll({
+      order: [["score", "DESC"]]
+    }).then(function(dbHighscore) {
       res.render("phaser", {
         highscore: dbHighscore
       });

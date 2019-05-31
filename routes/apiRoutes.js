@@ -3,7 +3,9 @@ var db = require("../models");
 module.exports = function(app) {
   // Get all examples
   app.get("/api/highscores", function(req, res) {
-    db.Highscore.findAll({}).then(function(dbHighscore) {
+    db.Highscore.findAll({
+      order: [["score", "DESC"]]
+    }).then(function(dbHighscore) {
       res.json(dbHighscore);
     });
   });

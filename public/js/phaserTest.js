@@ -5,6 +5,7 @@ var playerScore = 0;
 var scoreText;
 var timeText;
 var interval;
+var scoreInterval;
 
 // ----- GENERAL GAME SETTINGS ----- //
 
@@ -165,7 +166,7 @@ class preloadGame extends Phaser.Scene {
             repeat: -1
         });
 
-        // ???
+        // starts the scene called "PlayGame"
         this.scene.start("PlayGame");
     }
 }
@@ -200,6 +201,12 @@ class playGame extends Phaser.Scene {
         interval = setInterval(function () {
             timeText.text = "Time: " + ((new Date - start) / 1000);
         });
+
+        // set an interval function to add to the score with the time
+        scoreInterval = setInterval(function () {
+            playerScore += 10;
+            scoreText.text = 'Score: ' + playerScore;
+        }, 100);
 
         // create score text
         scoreText = this.add.text(160, 160, 'Score: 0', { fontSize: '32px', fill: '#ea6118' });
@@ -283,7 +290,7 @@ class playGame extends Phaser.Scene {
         // set gravity for player
         this.player.setGravityY(gameOptions.playerGravity);
 
-        // ???
+        // makes it so player is at the foreground
         this.player.setDepth(2);
 
         // the player is not dying
@@ -367,7 +374,7 @@ class playGame extends Phaser.Scene {
     // the core of the script: platform are added from the pool or created on the fly
     addPlatform(platformWidth, posX, posY) {
 
-        // ???
+        // makes platforms infinite
         this.addedPlatforms++;
 
         // initialize platform
@@ -381,7 +388,7 @@ class playGame extends Phaser.Scene {
             platform.active = true;
             platform.visible = true;
             this.platformPool.remove(platform);
-            // let newRatio = platformWidth / platform.displayWidth; --------- I deleted this and it didnt seem to matter, I think we can nix it
+            let newRatio = platformWidth / platform.displayWidth;
             platform.displayWidth = platformWidth;
             platform.tileScaleX = 1 / platform.scaleX;
         }
@@ -534,6 +541,9 @@ class playGame extends Phaser.Scene {
 
             // stop time
             clearInterval(interval);
+
+            // stop score
+            clearInterval(scoreInterval);
 
             // show modal
             $(document).ready(function () {

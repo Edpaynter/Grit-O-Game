@@ -102,8 +102,8 @@
         $.post(currentURL + "/api/highscores", userData, function (data) {
             $("#name").text(data.name);
             $("#score").text(data.score);
-        });
-        $("#scoreModal").modal("show")
+        }).then(function(){document.location.href = ("/")});
+       
 
     })
 

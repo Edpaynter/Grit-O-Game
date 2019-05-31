@@ -5,7 +5,7 @@
         <h1><img src="/assets/images/gritto.png"></h1>
         <h2><a href="/phaser"><img src="/assets/images/playgame.png"></a></h2>
         <h3>Current Leaderboard:</h3>
-        <ul id="high-score-list" class="list-group">
+        <ul id="high-score-list" class="list-group overflow-auto" style="height:350px;">
           {{#each highscore }}
           <li data-id="{{this.id}}" class="list-group-item">
             <strong>Name: </strong>{{this.name}} 

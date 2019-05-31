@@ -42,7 +42,7 @@ let gameOptions = {
     playerStartPosition: 600,
 
     // consecutive jumps allowed
-    jumps: 5,
+    jumps: 2,
 
     // % of probability a coin appears on the platform
     coinPercent: 100,
@@ -537,7 +537,7 @@ class playGame extends Phaser.Scene {
 
             // show modal
             $(document).ready(function () {
-                $("#score").html("Score: " + playerScore)
+                $("#score").html(playerScore)
                 $('#exampleModal').modal("show");
             });
         }

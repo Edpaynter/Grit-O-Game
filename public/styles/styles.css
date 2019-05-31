@@ -1,8 +1,11 @@
+
+
 .list-group-item {
   line-height: 2.5;
   background-color: #e16634f2;
   color: white;
   text-shadow: #ffcf0f 1px 0 10px;
+  font-family: 'Roboto Mono', monospace;
 }
 
 body {
@@ -19,13 +22,13 @@ body {
   align-content: center;
 }
 
-h3, a {
+h1, h3, a {
   color: #8c5a96;
-  text-shadow: red -2px 0px;
-  font-size: 35px;
+  text-shadow: red 2px 0px;
   font-family: Arial, Helvetica, sans-serif;
   padding: 5px;
   margin: 10px;
+  font-family: 'Righteous', cursive;
 }
 
 .row {

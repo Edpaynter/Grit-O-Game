@@ -10,11 +10,7 @@
 
 body {
   background-image: url("/assets/images/astronomy-dark-evening-957061\ \(1\).jpg");
-  background-size: cover;
-  /* background-image: url("https://www.transparenttextures.com/patterns/asfalt-light.png"); */
-  /* background-image: url("https://media.giphy.com/media/U3qYN8S0j3bpK/source.gif"); These two lines will give us a nice moving star background BUT they make the gritt-o aniumation lag
-  background-size: 41%; */
-}
+  background-size: cover; }
 
 #home {
   width: 60%;

@@ -14,13 +14,12 @@
             </div>
             <div class="modal-body">
                 <div id="score">
-
                 </div>
                 <form>
                     <div id="enterName" class="form-group">
-                        <input type="test" class="form-control" id="user" placeholder="Enter Name">
+                        <form><input type="test" class="form-control" id="user" placeholder="Enter Name" required>
+                        </form>
                     </div>
-
                 </form>
             </div>
             <div class="modal-footer">
@@ -31,62 +30,11 @@
     </div>
 </div>
 
-<div class="modal fade" id="scoreModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="scoreModalLabel">Top Scores</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div>
-
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th scope="col">#</th>
-                                <th scope="col">Name</th>
-                                <th scope="col">Score</th>
-                                {{!-- <th scope="col">Time</th> --}}
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {{#each highscore }}
-                            <tr>
-                            <td>
-                                {{this.id}}
-                            </td>
-                            <td>
-                                {{this.name}}
-                            </td>
-                            <td>
-                                {{this.score}}
-                            </td>
-                            </tr>
-                            {{/each}}
-
-                        </tbody>
-                    </table>
-                    <button id="playAgainScores" type="button" class="btn btn-primary">Play Again</button>
-                    <a href="/"><button id="mainMenu" type="button" class="btn btn-primary">Main Menu</button></a>
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-</div>
-
 
 <script>
-    $("#playAgain").click(function () {
-        location.reload()
-    });
 
-    $("#playAgainScores").click(function () {
+    // play again button reloads the page
+    $("#playAgain").click(function () {
         location.reload()
     });
 
@@ -94,7 +42,12 @@
         var userData = {
             name: $("#user").val(),
             score: $("#score").text(),
-        }
+        };
+
+        if (userData.name === "") {
+            alert("What are you called???");
+            return;
+        };
 
         console.log(userData);
 
@@ -102,11 +55,6 @@
         $.post(currentURL + "/api/highscores", userData, function (data) {
             $("#name").text(data.name);
             $("#score").text(data.score);
-        }).then(function(){document.location.href = ("/")});
-       
-
+        }).then(function () { document.location.href = ("/") });
     })
-
-   
-
 </script>
